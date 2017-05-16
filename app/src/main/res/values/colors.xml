@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <string-array name="values">
+        <item>#26C6DA</item>
+        <item>#4CAF50</item>
+        <item>#ffc035</item>
+        <item>#7C4DFF</item>
+        <item>#607D8B</item>
+    </string-array>
+</resources>
