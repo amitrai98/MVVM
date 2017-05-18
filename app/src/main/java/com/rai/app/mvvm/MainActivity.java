@@ -3,6 +3,7 @@ package com.rai.app.mvvm;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private String TAG = getClass().getSimpleName();
+    public static CoordinatorLayout layout_snackbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init(){
-
+        layout_snackbar = (CoordinatorLayout) findViewById(R.id.layout_snackbar);
         replaceFragment(new HomeFragment(), true);
     }
 }

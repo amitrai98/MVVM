@@ -3,6 +3,7 @@ package com.rai.app.mvvm.presentation.home;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Button;
 
 import com.app.runtimepermission.PermissionHandler;
 import com.app.runtimepermission.PermissionListener;
+import com.rai.app.mvvm.MainActivity;
 import com.rai.app.mvvm.R;
 import com.rai.app.mvvm.presentation.base.BaseFragment;
 
@@ -75,16 +77,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void onGranted(String message) {
                 Log.e(TAG, message);
+                showSnackbar(message);
             }
 
             @Override
             public void onError(String errorMessage) {
                 Log.e(TAG, errorMessage);
+                showSnackbar(errorMessage);
             }
 
             @Override
             public void onRejected(String message) {
                 Log.e(TAG, message);
+                showSnackbar(message);
             }
         });
     }
@@ -97,11 +102,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 Manifest.permission.INTERNET);
 
         Log.e(TAG , Manifest.permission.INTERNET+" "+value);
+        showSnackbar(Manifest.permission.READ_CALENDAR+" "+value);
 
         boolean pValue  = PermissionHandler.isCriticalPermission(getContext(),
                 Manifest.permission.READ_CALENDAR);
 
         Log.e(TAG , Manifest.permission.READ_CALENDAR+" "+pValue);
+        showSnackbar(Manifest.permission.READ_CALENDAR+" "+pValue);
     }
 
     /**
@@ -112,18 +119,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void onGranted(String message) {
                 Log.e(TAG, message);
+                showSnackbar(message);
             }
 
             @Override
             public void onError(String errorMessage) {
                 Log.e(TAG, errorMessage);
+                showSnackbar(errorMessage);
             }
 
             @Override
             public void onRejected(String message) {
                 Log.e(TAG, message);
+                showSnackbar(message);
             }
         });
+    }
+
+
+    /**
+     * shows message in snackbar
+     * @param message to be shown
+     */
+    private void showSnackbar(String message){
+        Snackbar snackbar = Snackbar
+                .make(MainActivity.layout_snackbar, ""+message, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
 
