@@ -80,5 +80,3 @@ PermissionHandler.getPermission(getActivity(), Manifest.permission.READ_CONTACTS
 
 That's it, all done.
 
-### Generic operations with countries
-
