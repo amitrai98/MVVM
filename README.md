@@ -6,7 +6,7 @@
 RuntimePermission is a simple library that can be used to handle all your permission requests from user. See the example to see more detail.
 
 <p align="center">
-  <img src="https://github.com/amitrai98/MVVM/blob/master/runtime.gi?raw=true" width="350"/>
+  <img src="https://github.com/amitrai98/MVVM/blob/master/runtime.gif" width="350"/>
 </p>
 
 
