@@ -1,11 +1,14 @@
-# runtime permission for Android
+# Runtime permission for Android
 
 
 
 
 RuntimePermission is a simple library that can be used to handle all your permission requests from user. See the example to see more detail.
 
-![](https://github.com/amitrai98/MVVM/blob/master/runtime.gif)
+<p align="center">
+  <img src="https://github.com/amitrai98/MVVM/blob/master/runtime.gi?raw=true" width="350"/>
+</p>
+
 
 ## How to use
 
