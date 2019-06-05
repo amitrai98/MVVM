@@ -22,7 +22,32 @@ public class PermissionHandler {
 
     private static String NOT_DEFINED_IN_MANIFEST = "requested runtime permission is not defined in your manifest";
     private static String NOT_REQUIRED = "requested permission do not required runtime permission";
-//    private String PERMISSION_GRANTED = "permission has been granted";
+    private static String[] foo_array = {
+            "android.permission.READ_CALENDAR",
+            "android.permission.WRITE_CALENDAR",
+            "android.permission.CAMERA",
+            "android.permission.READ_CONTACTS",
+            "android.permission.WRITE_CONTACTS",
+            "android.permission.GET_ACCOUNTS",
+            "android.permission.ACCESS_FINE_LOCATION",
+            "android.permission.ACCESS_COARSE_LOCATION",
+            "android.permission.RECORD_AUDIO",
+            "android.permission.READ_PHONE_STATE",
+            "android.permission.CALL_PHONE",
+            "android.permission.READ_CALL_LOG",
+            "android.permission.WRITE_CALL_LOG",
+            "android.permission.ADD_VOICEMAIL",
+            "android.permission.USE_SIP",
+            "android.permission.PROCESS_OUTGOING_CALLS",
+            "android.permission.BODY_SENSORS",
+            "android.permission.SEND_SMS",
+            "android.permission.RECEIVE_SMS",
+            "android.permission.READ_SMS",
+            "android.permission.RECEIVE_WAP_PUSH",
+            "android.permission.RECEIVE_MMS",
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE"
+    };
 
 
 
@@ -182,7 +207,6 @@ public class PermissionHandler {
      * @return boolean
      */
     public static boolean isCriticalPermission(Context context, String permission){
-        String[] foo_array = context.getResources().getStringArray(R.array.dangerous_permissions);
         for (String perm: foo_array){
             if (perm.equalsIgnoreCase(permission)){
                 return true;
