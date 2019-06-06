@@ -37,7 +37,7 @@ ext {
     siteUrl = 'https://github.com/amitrai98/MVVM/tree/master/runtimepermission'
     gitUrl = 'https://github.com/amitrai98/MVVM.git'
 
-    libraryVersion = '0.0.4'
+    libraryVersion = '0.0.5'
 
     developerId = 'amitrai'
     developerName = 'Amit Rai'
