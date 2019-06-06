@@ -98,13 +98,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      * checks if the permission is critical or not
      */
     private void checkCriticalPermission(){
-        boolean value  = PermissionHandler.isCriticalPermission(getContext(),
+        boolean value  = PermissionHandler.isCriticalPermission(
                 Manifest.permission.INTERNET);
 
         Log.e(TAG , Manifest.permission.INTERNET+" "+value);
         showSnackbar(Manifest.permission.READ_CALENDAR+" "+value);
 
-        boolean pValue  = PermissionHandler.isCriticalPermission(getContext(),
+        boolean pValue  = PermissionHandler.isCriticalPermission(
                 Manifest.permission.READ_CALENDAR);
 
         Log.e(TAG , Manifest.permission.READ_CALENDAR+" "+pValue);
@@ -115,25 +115,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      * gets single permission
      */
     private void getSinglePermission(){
-        PermissionHandler.getPermission(getActivity(), Manifest.permission.READ_CONTACTS, new PermissionListener() {
-            @Override
-            public void onGranted(String message) {
-                Log.e(TAG, message);
-                showSnackbar(message);
-            }
 
-            @Override
-            public void onError(String errorMessage) {
-                Log.e(TAG, errorMessage);
-                showSnackbar(errorMessage);
-            }
+        if(PermissionHandler.isGranted(getActivity(), PermissionHandler.CALL_PHONE))
+            showSnackbar("yes permission is granted");
+        else{
+            showSnackbar("no permission is not granged");
+            PermissionHandler.getPermission(getActivity(), PermissionHandler.CALL_PHONE, new PermissionListener() {
+                @Override
+                public void onGranted(String message) {
+                    Log.e(TAG, message);
+                    showSnackbar(message);
+                }
 
-            @Override
-            public void onRejected(String message) {
-                Log.e(TAG, message);
-                showSnackbar(message);
-            }
-        });
+                @Override
+                public void onError(String errorMessage) {
+                    Log.e(TAG, errorMessage);
+                    showSnackbar(errorMessage);
+                }
+
+                @Override
+                public void onRejected(String message) {
+                    Log.e(TAG, message);
+                    showSnackbar(message);
+                }
+            });
+        }
+
+
+
     }
 
 

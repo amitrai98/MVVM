@@ -49,86 +49,98 @@ public class PermissionHandler {
             "android.permission.WRITE_EXTERNAL_STORAGE"
     };
 
+    public static String READ_CALENDAR = "android.permission.READ_CALENDAR";
+    public static String WRITE_CALENDAR = "android.permission.WRITE_CALENDAR";
+    public static String CAMERA = "android.permission.CAMERA";
+    public static String READ_CONTACTS = "android.permission.READ_CONTACTS";
+    public static String WRITE_CONTACTS = "android.permission.WRITE_CONTACTS";
+    public static String GET_ACCOUNTS = "android.permission.GET_ACCOUNTS";
+    public static String ACCESS_FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION";
+    public static String ACCESS_COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION";
+    public static String RECORD_AUDIO = "android.permission.RECORD_AUDIO";
+    public static String READ_PHONE_STATE = "android.permission.READ_PHONE_STATE";
+    public static String CALL_PHONE = "android.permission.CALL_PHONE";
+    public static String READ_CALL_LOG = "android.permission.READ_CALL_LOG";
+    public static String WRITE_CALL_LOG = "android.permission.WRITE_CALL_LOG";
+    public static String ADD_VOICEMAIL = "android.permission.ADD_VOICEMAIL";
+    public static String USE_SIP = "android.permission.USE_SIP";
+    public static String PROCESS_OUTGOING_CALLS = "android.permission.PROCESS_OUTGOING_CALLS";
+    public static String BODY_SENSORS = "android.permission.BODY_SENSORS";
+    public static String SEND_SMS = "android.permission.SEND_SMS";
+    public static String RECEIVE_SMS = "android.permission.RECEIVE_SMS";
+    public static String READ_SMS = "android.permission.READ_SMS";
+    public static String RECEIVE_WAP_PUSH = "android.permission.RECEIVE_WAP_PUSH";
+    public static String RECEIVE_MMS = "android.permission.RECEIVE_MMS";
+    public static String READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE";
+    public static String WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
 
 
-
-    public static void getPermission(Activity context, String permission, PermissionListener listener){
+    public static void getPermission(Activity context, String permission, PermissionListener listener) {
         PermissionHandler.listener = listener;
-        if (getListOfPermissions(context, permission)){
-            if (isCriticalPermission(context, permission)){
+        if (getListOfPermissions(context, permission)) {
+            if (isCriticalPermission( permission)) {
                 Intent i = new Intent(context, PermissionDetailActivity.class);
                 PermissionDetailActivity.listener = listener;
                 i.putExtra(PermissionDetailActivity.PARM_PERMISSION_REQUESTED, permission);
                 context.startActivity(i);
-            }else
+            } else
                 listener.onGranted(NOT_REQUIRED);
-        }else
+        } else
             listener.onError(NOT_DEFINED_IN_MANIFEST);
 
 
     }
 
-    public static void getAllPermissions(Activity activity, PermissionListener listener){
+    public static void getAllPermissions(Activity activity, PermissionListener listener) {
         getListOfPermissions(activity, listener);
     }
 
 
     /**
      * checks is permission is declared in manifest file
-     * @param context of the application
+     *
+     * @param context        of the application
      * @param permissionName name of the permission requested
      * @return boolean value
      */
-    public static boolean getListOfPermissions(final Context context, String permissionName)
-    {
+    public static boolean getListOfPermissions(final Context context, String permissionName) {
         boolean hasPermission = false;
 
-        try
-        {
+        try {
             final AssetManager _am = context.createPackageContext(context.getPackageName(), 0).getAssets();
             final XmlResourceParser _xmlParser = _am.openXmlResourceParser(0, "AndroidManifest.xml");
             int _eventType = _xmlParser.getEventType();
-            while (_eventType != XmlPullParser.END_DOCUMENT)
-            {
-                if ((_eventType == XmlPullParser.START_TAG) && "uses-permission".equals(_xmlParser.getName()))
-                {
-                    for (byte i = 0; i < _xmlParser.getAttributeCount(); i ++)
-                    {
+            while (_eventType != XmlPullParser.END_DOCUMENT) {
+                if ((_eventType == XmlPullParser.START_TAG) && "uses-permission".equals(_xmlParser.getName())) {
+                    for (byte i = 0; i < _xmlParser.getAttributeCount(); i++) {
 //                        if (_xmlParser.getAttributeName(i).equals("name"))
 //                        {
 
-                            if (isCriticalPermission(context, _xmlParser.getAttributeName(i))){
-                                Intent intent = new Intent(context, PermissionDetailActivity.class);
-                                intent.putExtra(PermissionDetailActivity.PARM_PERMISSION_REQUESTED, permission);
-                                context.startActivity(intent);
-                            }else
-                                listener.onGranted(NOT_REQUIRED);
+                        if (isCriticalPermission( _xmlParser.getAttributeName(i))) {
+                            Intent intent = new Intent(context, PermissionDetailActivity.class);
+                            intent.putExtra(PermissionDetailActivity.PARM_PERMISSION_REQUESTED, permission);
+                            context.startActivity(intent);
+                        } else
+                            listener.onGranted(NOT_REQUIRED);
 //                            _permissions += _xmlParser.getAttributeValue(i) + "\n";
 
 
+                        if (_xmlParser.getAttributeValue(i).equalsIgnoreCase(permissionName)) {
 
-                            if (_xmlParser.getAttributeValue(i).equalsIgnoreCase(permissionName)){
-
-                                return true;
-                            }
-                            Log.e("permissions", ""+_xmlParser.getAttributeValue(i));
+                            return true;
+                        }
+                        Log.e("permissions", "" + _xmlParser.getAttributeValue(i));
 //                        }
                     }
                 }
                 _eventType = _xmlParser.nextToken();
             }
             _xmlParser.close(); // Pervents memory leak.
-        }
-        catch (final XmlPullParserException exception)
-        {
+        } catch (final XmlPullParserException exception) {
             exception.printStackTrace();
-        }
-        catch (final PackageManager.NameNotFoundException exception)
-        {
+        } catch (final PackageManager.NameNotFoundException exception) {
             exception.printStackTrace();
-        }
-        catch (final IOException exception)
-        {
+        } catch (final IOException exception) {
             exception.printStackTrace();
         }
 
@@ -138,61 +150,39 @@ public class PermissionHandler {
 
     /**
      * checks is permission is declared in manifest file
+     *
      * @param context of the application
      * @return boolean value
      */
-    public static boolean getListOfPermissions(final Context context, PermissionListener listener)
-    {
+    public static boolean getListOfPermissions(final Context context, PermissionListener listener) {
         boolean hasPermission = false;
 
-        try
-        {
+        try {
             final AssetManager _am = context.createPackageContext(context.getPackageName(), 0).getAssets();
             final XmlResourceParser _xmlParser = _am.openXmlResourceParser(0, "AndroidManifest.xml");
             int _eventType = _xmlParser.getEventType();
-            while (_eventType != XmlPullParser.END_DOCUMENT)
-            {
-                if ((_eventType == XmlPullParser.START_TAG) && "uses-permission".equals(_xmlParser.getName()))
-                {
-                    for (byte i = 0; i < _xmlParser.getAttributeCount(); i ++)
-                    {
-//                        if (_xmlParser.getAttributeName(i).equals("name"))
-//                        {
+            while (_eventType != XmlPullParser.END_DOCUMENT) {
+                if ((_eventType == XmlPullParser.START_TAG) && "uses-permission".equals(_xmlParser.getName())) {
+                    for (byte i = 0; i < _xmlParser.getAttributeCount(); i++) {
 
-                        if (isCriticalPermission(context, _xmlParser.getAttributeValue(i))){
+                        if (isCriticalPermission( _xmlParser.getAttributeValue(i))) {
                             PermissionDetailActivity.listener = listener;
                             Intent intent = new Intent(context, PermissionDetailActivity.class);
                             intent.putExtra(PermissionDetailActivity.PARM_PERMISSION_REQUESTED,
                                     _xmlParser.getAttributeValue(i));
                             context.startActivity(intent);
-                        }else
+                        } else
                             listener.onGranted(NOT_REQUIRED);
-//                            _permissions += _xmlParser.getAttributeValue(i) + "\n";
-
-
-
-//                        if (_xmlParser.getAttributeValue(i).equalsIgnoreCase(permissionName)){
-//
-////                                return true;
-//                        }
-//                            Log.e("permissions", ""+_xmlParser.getAttributeValue(i));
-//                        }
                     }
                 }
                 _eventType = _xmlParser.nextToken();
             }
             _xmlParser.close(); // Pervents memory leak.
-        }
-        catch (final XmlPullParserException exception)
-        {
+        } catch (final XmlPullParserException exception) {
             exception.printStackTrace();
-        }
-        catch (final PackageManager.NameNotFoundException exception)
-        {
+        } catch (final PackageManager.NameNotFoundException exception) {
             exception.printStackTrace();
-        }
-        catch (final IOException exception)
-        {
+        } catch (final IOException exception) {
             exception.printStackTrace();
         }
 
@@ -202,17 +192,30 @@ public class PermissionHandler {
 
     /**
      * checks if permission is critical or not
-     * @param context context of the app
+     *
      * @param permission to be checked
      * @return boolean
      */
-    public static boolean isCriticalPermission(Context context, String permission){
-        for (String perm: foo_array){
-            if (perm.equalsIgnoreCase(permission)){
+    public static boolean isCriticalPermission(String permission) {
+        for (String perm : foo_array) {
+            if (perm.equalsIgnoreCase(permission)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static boolean isGranted(Activity activity, String permission) {
+        PackageManager pm = activity.getPackageManager();
+        int hasPerm = pm.checkPermission(
+                permission,
+                activity.getPackageName());
+        if (hasPerm != PackageManager.PERMISSION_GRANTED)
+            return false;
+        else
+            return true;
+
+
     }
 
 
