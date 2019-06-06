@@ -22,7 +22,7 @@ Step 1\. Add the dependency
 
 ```java
 dependencies {
-        compile 'com.app.runtimepermission:runtimepermission:0.0.2'
+        compile 'com.app.runtimepermission:runtimepermission:0.0.4'
 }
 ```
 
